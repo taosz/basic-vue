@@ -1,22 +1,22 @@
 <template>
-	<vc-form 
-		ref="form" 
-		:model="formValidate" 
-		:rules="ruleValidate" 
+	<vc-form
+		ref="form"
+		:model="formValidate"
+		:rules="ruleValidate"
 		:label-width="120"
-		style="height: 100vh" 
+		style="height: 100vh"
 		position="left"
 		class="g-flex-cc g-fd-c"
 	>
 		<vc-form-item label="用户名:" prop="user">
-			<vc-input v-model="formValidate.user" placeholder="请输入用户名" />
+			<vc-input v-model="formValidate.user" placeholder="请输入用户名"/>
 		</vc-form-item>
 		<vc-form-item label="密码:" prop="password">
-			<vc-input v-model="formValidate.password" placeholder="请输入密码" />
+			<vc-input v-model="formValidate.password" placeholder="请输入密码"/>
 		</vc-form-item>
 		<div @click="handleLogin">
 			登录
-		</div> 	
+		</div>
 	</vc-form>
 </template>
 
@@ -28,8 +28,7 @@ import { createLoginAuth } from '@routers/hooks';
 
 export default {
 	name: 'login',
-	components: {
-	},
+	components: {},
 	data() {
 		return {
 			formValidate: {
@@ -50,7 +49,7 @@ export default {
 		...mapState(['loginMain'])
 	},
 	created() {
-		
+
 	},
 	methods: {
 		handleLogin() {

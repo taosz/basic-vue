@@ -11,11 +11,11 @@ const log = console.log;
 program
 	.version(require('../package').version);
 
-// 使用指令参数 如 basic-vue server;
+// 使用指令参数 如 basic-env.js server;
 program
 	.usage('<cmd>');
 
-// 设计模版 终端执行: basic-vue _ cc -t test
+// 设计模版 终端执行: basic-env.js _ cc -t test
 program
 	.command('__tpl__ <cmd>')
 	.alias('_')
@@ -31,14 +31,14 @@ program
 	});
 
 
-// 初始化项目 终端执行: basic-vue init
+// 初始化项目 终端执行: basic-env.js init
 program
 	.command('init')
 	.alias('i')
 	.description('Create a new project')
 	.action((opts) => require(res('init')));
 
-// 初始化项目 终端执行：basic-vue add
+// 初始化项目 终端执行：basic-env.js add
 program
 	.command('add')
 	.alias('a')

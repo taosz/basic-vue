@@ -31,7 +31,6 @@
     "node": ">=6"
   },
   "bin": {
-    "basic-vue": "bin/basic-vue"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
