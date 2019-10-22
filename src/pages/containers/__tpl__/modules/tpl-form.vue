@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Content from '@components/__tpl__/form/content';
+import Content from '@components/__tpl__/form/content'
 
 export default {
 	name: 'tpl-main',
@@ -15,13 +15,13 @@ export default {
 	data() {
 		return {
 			
-		};
+		}
 	},
 	created() {
 	},
 	methods: {
 	},
-};
+}
 </script>
 
 <style lang="scss">

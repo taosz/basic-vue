@@ -1,17 +1,17 @@
 /**
  * 中间件
  */
-import createLogger from 'vuex/dist/logger';
-import createApi from './plugins/api';
+import createLogger from 'vuex/dist/logger'
+import createApi from './plugins/api'
 
 /**
  * 根级别
  */
-import { actions } from './actions';
-import { mutations } from './mutations';
-import modules from './modules/root';
+import { actions } from './actions'
+import { mutations } from './mutations'
+import modules from './modules/root'
 
-const debug = process.env.NODE_ENV !== 'production';
+const debug = process.env.NODE_ENV !== 'production'
 
 export const storeConfig = {
 	strict: debug,
@@ -19,4 +19,4 @@ export const storeConfig = {
 	actions,
 	mutations,
 	modules
-};
+}

@@ -1,0 +1,276 @@
+/**
+ * layout 定义全局样式
+ */
+
+/**
+ *  定义栅格布局 12等分
+ *  return g-w-value, g-fw-value 浮动
+ */
+
+@include globalLayout($total);
+
+/**
+ *  定义全局需要的 color(lists)
+ *  (name:名称, value:值)
+ *  return g-c-pink
+ */
+@include globalColor($color-list);
+
+/**
+ *  定义全局需要的 bgColor
+ *  (name:名称, value:值, color:字体颜色，默认白色)
+ *  return g-bg-pink
+ */
+@include globalBgColor($bg-color-list);
+
+/**
+ *  定义全局需要的 bgLineColor
+ *  (name:名称, value:值, color:字体颜色，默认白色)
+ *  return g-bg-lg-pink
+ */
+@include globalBgLineColor($bg-line-color-list);
+
+/**
+ *  定义全局需要的font-size(lists)
+ *  return g-fs-12
+ */
+@include globalFontSize($font-size-list);
+
+/**
+ *  定义全局需要的line-height(lists)
+ *  return g-lh-44
+ */
+@include globalLineHeight($line-height-list);
+
+/**
+ *  定义全局需要的padding(lists)
+ *  > string(定义方向 t(top), b(bottom), l(left), r(right))
+ *  , list(定义该方向要用的数值，可以是number，或者是maps(名称:值))
+ *  return g-pd-15 / g-pd-sm / g-pd-tb-10
+ */
+@include globalPadding($padding-list);
+
+/**
+ *  定义全局需要的margin(lists)
+ *  > string(定义方向 t(top), b(bottom), l(left), r(right))
+ *  , list(定义该方向要用的数值，可以是number，或者是maps(名称:值))
+ *  return g-m-15 / g-m-tb-10em
+ */
+@include globalMargin($margin-list);
+
+/**
+ *  定义全局需要的img大小(lists)
+ *  return g-img-60
+ */
+@include globalImgSize($img-size-list);
+
+/**
+ *  定义全局需要的img大小(lists) 圆形
+ *  return g-imgc-60
+ */
+@include globalCircleImgSize($img-size-list);
+
+/**
+ *  定义全局需要的img大小(lists) 圆角
+ *  return g-imgr-60
+ */
+@include globalRadiusImgSize($img-size-list);
+
+.g-br-circle {
+	border-radius: 100% !important;
+}
+.g-br-sem {
+	border-radius: $default-border-radius !important;
+}
+.g-b {
+	@include commonBorder1PX();
+}
+.g-bb {
+	@include commonBorder1PX(bottom);
+}
+
+.g-br {
+	@include commonBorder1PX(right);
+}
+
+.g-bl {
+	@include commonBorder1PX(left);
+}
+
+.g-bt {
+	@include commonBorder1PX(top);
+}
+
+.g-bs {
+	box-shadow: $border-shadow !important;
+}
+
+.g-bs-t {
+	box-shadow: $border-shadow-top !important;
+}
+
+.g-tc {
+	text-align: center !important;
+}
+
+.g-tl {
+	text-align: left !important;
+}
+
+.g-tr {
+	text-align: right !important;
+}
+
+.g-td-lh {
+	text-decoration: line-through !important;
+}
+
+.g-td-ul {
+	text-decoration: underline !important;
+}
+
+.g-nowrap {
+	white-space: nowrap !important;
+}
+
+/**
+ * g-nobreak -> g-break
+ * 历史遗留 暂时先同时保留
+ */
+.g-nobreak, .g-break {
+	word-break: break-all;
+	word-wrap: break-word;
+}
+
+.g-fixed {
+	position: fixed !important;
+}
+.g-relative {
+	position: relative !important;
+}
+
+.g-absolute {
+	position: absolute !important;
+}
+
+.g-clearfix:before,
+.g-clearfix:after,
+.g-row:before,
+.g-row:after {
+	display: table;
+	content: " ";
+}
+.g-clearfix:after,
+.g-row:after {
+	clear: both;
+}
+.g-row {
+	margin: 0;
+	padding: 0;
+}
+.g-fr {
+	float: right;
+}
+.g-fl {
+	float: left;
+}
+
+.g-h-full {
+	height: 100vh;
+}
+
+/**
+ * 禁用事件
+ */
+.g-disabled {
+	pointer-events: none;
+}
+
+/**
+ * 禁用动画
+ */
+.g-noanimate {
+	animation: 0 !important;
+	-webkit-animation: 0 !important;
+}
+
+/**
+ * 一行文字
+ */
+.g-oneline {
+	@include commonTextLine(1);
+}
+
+/**
+ * 两行文字
+ */
+.g-twoline {
+	@include commonTextLine(2);
+}
+
+/**
+ * 两行文字 限高
+ */
+.g-two-lh {
+	height: $line-height-limit * 2;
+	line-height: $line-height-limit;
+}
+
+/**
+ * 一行文字 限高
+ */
+.g-one-lh {
+	height: $line-height-limit;
+	line-height: $line-height-limit;
+}
+
+/**
+ * display
+ */
+.g-none, .g-dp-n, .g-hide {
+	display: none !important;
+}
+.g-show, .g-dp-b, .g-block {
+	display: block !important;
+}
+.g-dp-i, .g-inline {
+	display: inline !important;
+}
+.g-dp-ib, .g-inline-block {
+	display: inline-block !important;
+}
+
+/**
+ * cursor
+ */
+.g-pointer {
+	cursor: pointer !important;
+}
+
+/**
+ * divide 划分
+ */
+.g-divide {
+	margin: 0 8px;
+	display: inline-block;
+	height: 12px;
+	width: 1px;
+	vertical-align: middle;
+	position: relative;
+	box-sizing: border-box;
+	background: #ccc;
+}
+
+/**
+  * dot 圆点
+  */
+.g-dot {
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	display: block;
+}
+
+.g-of-h {
+	overflow: hidden !important;
+}

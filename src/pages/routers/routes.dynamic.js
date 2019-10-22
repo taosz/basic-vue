@@ -1,53 +1,63 @@
-import { cloneDeep } from 'lodash';
-import Router from 'vue-router';
-import { Storage } from '@utils/utils';
-import { TOKEN_KEY } from '@constants/constants';
-import Layout from '@components/layout/layout';
-import Left from '@components/layout/left';
-import Top from '@components/layout/top';
+import { cloneDeep } from 'lodash'
+import Router from 'vue-router'
+import { Storage } from '@utils/utils'
+import { TOKEN_KEY } from '@constants/constants'
+import Layout from '@components/layout/layout'
+import Left from '@components/layout/left'
+import Top from '@components/layout/top'
 /**
  * 用于排序
  */
-import { getChunks } from '@components/layout/menu/chunks';
+import { getChunks } from '@components/layout/menu/chunks'
 
 class RoutesManager {
 	constructor(basicRoutes, dynamicRoutes) {
-		this.basicRoutes = basicRoutes;
-		this.dynamicRoutes = dynamicRoutes;
+		this.basicRoutes = basicRoutes
+		this.dynamicRoutes = {}
 
-		this.router = null;
-		this.config = this.init();
+		Object.keys(dynamicRoutes).forEach(i => {
+			this.dynamicRoutes[i] = dynamicRoutes[i]
+		})
+
+		this.router = null
+		this.config = this.init()
 	}
 
 	setRouter(router) {
-		this.router = router;
+		this.router = router
 	}
 
 	/**
 	 * 后端给的字段为power
 	 */
 	isLoggedIn() {
-		return Storage.get(TOKEN_KEY);
+		return Storage.get(TOKEN_KEY)
 	}
 
 	/**
 	 * 初始化路由，如果已经登录过，则生成有权限的路由配置文件，给Router
 	 */
 	init() {
-		let routes = cloneDeep(this.basicRoutes);
+		let routes = cloneDeep(this.basicRoutes)
 
 		if (this.isLoggedIn()) {
-			let children = this.getRoutes();
-			let redirect = (children[0] || {}).path || '/404';
+			let children = this.getRoutes()
+			let redirect = (children[0] || {}).path || '/404'
 
 			routes.routes.push({
 				path: '/',
 				component: Layout,
 				redirect,
 				children
-			});
+			})
+		} else {
+			routes.push({
+				path: '*',
+				redirect: '/login'
+			})
 		}
-		return routes;
+		console.log(routes)
+		return routes
 	}
 
 	/**
@@ -55,10 +65,11 @@ class RoutesManager {
 	 */
 	reset() {
 		// 重新获得有权限的路由
-		let children = this.getRoutes() || [];
-		let redirect = (children[0] || {}).path || '/404';
-		let newRouter = new Router(this.basicRoutes);
-		this.router.matcher = newRouter.matcher; // the relevant part
+		let children = this.getRoutes() || []
+		let redirect = (children[0] || {}).path || '/404'
+		console.log(['redirect', redirect])
+		let newRouter = new Router(this.basicRoutes)
+		this.router.matcher = newRouter.matcher // the relevant part
 		this.router.addRoutes(
 			[
 				{
@@ -68,43 +79,43 @@ class RoutesManager {
 					children
 				}
 			]
-		);
+		)
+		console.log(this.router)
 	}
 
 	getRoutes() {
-		let dynamicRoutes = cloneDeep(this.dynamicRoutes);
-		let allRoutes = getChunks().reduce((pre, cur) => {
-			dynamicRoutes[cur.value] && pre.push(...dynamicRoutes[cur.value]);
-			return pre;
-		}, []);
-
-
-		let auth = this.isLoggedIn();
+		let dynamicRoutes = cloneDeep(this.dynamicRoutes)
+		console.log([getChunks(), this.dynamicRoutes, dynamicRoutes])
+		let allRoutes = getChunks()
+			.reduce((pre, cur) => {
+				dynamicRoutes[cur.value] && pre.push(...dynamicRoutes[cur.value])
+				return pre
+			}, [])
 
 		// 筛选出有权限的路由
 		let authRoutes = allRoutes.filter((route) => {
-			// return auth[route.auth];
-			return true;
-		});
+			return true
+		})
 
-		let temp = [];
+		let temp = []
+
 		let routes = authRoutes.reduce((pre, route) => {
 			// 一、二级路由url如果页面，则不做redirect
 			if (route.path.split('/').length < 4) {
-				temp.push(route.path);
+				temp.push(route.path)
 			}
-			let redirect = this.getRedirect(route.path);
-			
+			let redirect = this.getRedirect(route.path)
+
 			if (redirect) {
 				redirect.forEach((path) => {
 					if (!temp.includes(path)) {
-						temp.push(path);
+						temp.push(path)
 						pre.push({
 							path,
 							redirect: route.path
-						});
+						})
 					}
-				});
+				})
 			}
 
 			// 普通路由
@@ -115,39 +126,40 @@ class RoutesManager {
 					components: {
 						default: () => ({
 							component: route.components[0]()
-						}),
-						left: route.components.includes('left') && Left,
-						top: route.components.includes('top') && Top,
+						})
+						// left: route.components.includes('left') && Left,
+						// top: route.components.includes('top') && Top
 					}
-				};
+				}
 
-			pre.push(config);
-			return pre;
-		}, []);
-
-		return routes;
+			pre.push(config)
+			return pre
+		}, [])
+		console.log(routes)
+		return routes
 	}
 
 	getRedirect(path) {
-		let pathArr = path.split('/');
-		let redirect;
+		let pathArr = path.split('/')
+		let redirect
 		switch (pathArr.length) {
 			case 4: // 三级导航
 				redirect = [
 					`/${pathArr[1]}`,
 					`/${pathArr[1]}/${pathArr[2]}`
-				];
-				break;
+				]
+				break
 			case 3: // 二级导航
 				redirect = [
 					`/${pathArr[1]}`
-				];
-				break;
-			default: 
-				break;
+				]
+				break
+			default:
+				break
 		}
 
-		return redirect;
+		return redirect
 	}
 }
-export default RoutesManager;
+
+export default RoutesManager

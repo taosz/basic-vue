@@ -1,5 +1,5 @@
-import { loginMain } from './main';
+import { loginMain } from './main'
 
 export default {
 	loginMain
-};
+}

@@ -1,7 +1,7 @@
 <template>
 	<tbody>
 		<template v-for="item in dataSource">
-			<vc-fragment :key="item.id">
+			<el-fragment :key="item.id">
 				<tr>
 					<td colspan="4">
 						{{ item.name }}
@@ -41,16 +41,16 @@
 						</div>
 					</td>
 				</tr>
-			</vc-fragment>
+			</el-fragment>
 		</template>
 	</tbody>
 </template>
 <script>
 
 export default {
-	name: 'vc-fragment-item',
+	name: 'el-fragment-item',
 	components: {
-		'vc-fragment': Fragment
+		'el-fragment': Fragment
 	},
 	props: {
 		dataSource: {
@@ -62,14 +62,14 @@ export default {
 	},
 	methods: {
 		handleResetFirst() {
-			this.$store.commit('TPL_PAGING_NATIVE_LIST_INIT');
+			this.$store.commit('TPL_PAGING_NATIVE_LIST_INIT')
 		},
 		handleResetCur() {
-			this.$store.commit('TPL_PAGING_NATIVE_LIST_RESET');
+			this.$store.commit('TPL_PAGING_NATIVE_LIST_RESET')
 		},
 		handleLinkTo() {
-			this.$router.push('/tpl/paging/tabs');
+			this.$router.push('/tpl/paging/tabs')
 		},
 	}
-};
+}
 </script>

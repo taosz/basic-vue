@@ -1,1 +1,3 @@
-export const getSettingRoutes = (auth) => [];
+export default [{
+	setting: 1
+}]

@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import List from '@components/__tpl__/paging-piece/list';
-import Filter from '@components/__tpl__/paging-piece/filter';
-import navigator from '@extends/mixins/navigator';
+import List from '@components/__tpl__/paging-piece/list'
+import Filter from '@components/__tpl__/paging-piece/filter'
+import navigator from '@extends/mixins/navigator'
 
 export default {
 	name: 'tpl-paging-piece',
@@ -19,13 +19,13 @@ export default {
 	mixins: [navigator('TPL_PAGING_PIECE')],
 	data() {
 		return {
-		};
+		}
 	},
 	created() {
 	},
 	methods: {
 	},
-};
+}
 </script>
 
 <style lang="scss">

@@ -1,113 +1,119 @@
-import '@babel/polyfill';
+import '@babel/polyfill'
 
 /**
  * Vue
  */
-import Vue from 'vue';
-import Router from 'vue-router';
-import Vuex from 'vuex';
-import { Vc } from '@wya/vc';
-import { sync } from 'vuex-router-sync';
+import Vue from 'vue'
+import Router from 'vue-router'
+import Vuex from 'vuex'
+import { sync } from 'vuex-router-sync'
 
 /**
  * 全局变量 _global, 不要动
  */
-import _global from './_global'; // eslint-disable-line
+import _global from './_global' // eslint-disable-line
+
+/**
+ * 全局加载elementUI
+ */
+import ElementUI from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css';
 
 /**
  * 配置
  */
-import SetTitle from '@common/set-title/set-title';
-import Loading from '@common/loading/loading';
-import emitter from '@extends/mixins/emitter';
-import request from '@extends/plugins/request';
-import VcConfig from './vc.config';
-import scrollBehavior from './scroll-behavior';
+import SetTitle from '@common/set-title/set-title'
+import Loading from '@common/loading/loading'
+import emitter from '@extends/mixins/emitter'
+import request from '@extends/plugins/request'
+import App from '../App'
 
-import { beforeEach, afterEach, clearLocalStorage } from './hooks';
+import { beforeEach, afterEach, clearLocalStorage } from './hooks'
 
 /**
  * Vuex Config
  */
-import { storeConfig } from '../stores/root';
+import { storeConfig } from '../stores/root'
 
-import RoutesManager from './routes.dynamic';
+import RoutesManager from './routes.dynamic'
+
 /**
  * vue-router Config
+ * 根据环境选择不同路由配置项
  */
-let dynamicRoutes;
-if (process.env.NODE_ENV !== "production") {
-	dynamicRoutes = require('./routes.dev').dynamicRoutes;
+let dynamicRoutes
+if (process.env.NODE_ENV !== 'production') {
+	dynamicRoutes = require('./routes.dev').dynamicRoutes
 } else {
-	dynamicRoutes = require('./routes.dist').dynamicRoutes;
+	dynamicRoutes = require('./routes.dist').dynamicRoutes
 }
-let basicRoutes;
-if (process.env.NODE_ENV !== "production") {
-	basicRoutes = require('./routes.dev').basicRoutes;
+let basicRoutes
+if (process.env.NODE_ENV !== 'production') {
+	basicRoutes = require('./routes.dev').basicRoutes
 } else {
-	basicRoutes = require('./routes.dist').basicRoutes;
+	basicRoutes = require('./routes.dist').basicRoutes
 }
 
-let routesManager = new RoutesManager(basicRoutes, dynamicRoutes);
+console.log([basicRoutes, dynamicRoutes])
+let routesManager = new RoutesManager(basicRoutes, dynamicRoutes)
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
+
+/**
+ * 挂载element
+ */
+Vue.use(ElementUI, { size: 'small' })
 
 // - 全局组件
-Vue.component(SetTitle.name, SetTitle);
-Vue.component(Loading.name, Loading);
+Vue.component(SetTitle.name, SetTitle)
+Vue.component(Loading.name, Loading)
 
 // - 全局mixins
-Vue.mixin(emitter);
+Vue.mixin(emitter)
 
 // - 全局plugins
-Vue.use(request);
+Vue.use(request)
 
 // - 全局global对象
-Vue.use(_global);
+Vue.use(_global)
 
 // - 路由
-Vue.use(Router);
+Vue.use(Router)
 
-const router = new Router({ ...routesManager.config, scrollBehavior });
+const router = new Router({
+	...routesManager.config,
+})
 
-routesManager.setRouter(router);
+routesManager.setRouter(router)
 
-router.beforeEach(beforeEach);
-router.afterEach(afterEach);
+router.beforeEach(beforeEach)
+router.afterEach(afterEach)
 router.onError((error) => {
 	if (error.message.match(/Loading chunk (\d)+ failed/g)) {
-		location.reload();
+		location.reload()
 	}
-});
+})
 
 // - Vuex
-Vue.use(Vuex);
-const store = new Vuex.Store(storeConfig);
-
-// - 全局@wya/vc实例
-Vue.use(Vc, VcConfig({ store, router }));
+Vue.use(Vuex)
+const store = new Vuex.Store(storeConfig)
 
 // - 同步
-sync(store, router);
+sync(store, router)
 
 // - 实例
 const app = new Vue({
-	el: "#pages",
+	el: '#pages',
 	router,
 	store,
-	render(h) {
-		return (
-			<div id="pages">
-				<router-view></router-view>
-			</div>
-		);
-	}
-});
+	// todo 目前使用引用vue问文件的方式 可以选用jsx插入
+	render: h => h(App)
+})
 
-// 先不考虑服务端渲染情况
 router.onReady(() => {
-	app.$mount();
-});
+	app.$mount()
+})
 
-window.app = app;
-window.routesManager = routesManager;
+window.app = app
+window.routesManager = routesManager
+

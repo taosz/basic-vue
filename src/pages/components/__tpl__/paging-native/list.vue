@@ -1,8 +1,8 @@
 <template>
-	<vc-paging
+	<el-paging
 		ref="tableTarget"
 		:columns="columns"
-		:data-source="listInfo.data" 
+		:data-source="listInfo.data"
 		:count="listInfo.count"
 		:total="listInfo.total"
 		:reset="listInfo.reset"
@@ -15,12 +15,12 @@
 		<template #default="{ dataSource }">
 			<tpl-item :data-source="dataSource" />
 		</template>
-	</vc-paging>
+	</el-paging>
 </template>
 
 <script>
-import { URL } from '@utils/utils';
-import Item from './item';
+import { URL } from '@utils/utils'
+import Item from './item'
 
 export default {
 	name: 'tpl-table1',
@@ -30,16 +30,16 @@ export default {
 	data() {
 		return {
 			columns: ['Header - 1', 'Header - 2', 'Header - 3', 'Header - 4']
-		};
+		}
 	},
 	computed: {
 		listInfo() {
-			return this.$store.state.tplPagingNative.listInfo;
+			return this.$store.state.tplPagingNative.listInfo
 		}
 	},
 	methods: {
 		loadData(page, pageSize) {
-			const { query = {} } = URL.parse();
+			const { query = {} } = URL.parse()
 			return this.request({
 				url: 'TPL_PAGING_NATIVE_LIST_GET',
 				type: 'GET',
@@ -49,16 +49,16 @@ export default {
 					pageSize,
 				},
 			}).then((res) => {
-				console.log(res, 'res');
+				console.log(res, 'res')
 			}).catch((error) => {
-				console.log(error, 'error');
-			});
+				console.log(error, 'error')
+			})
 		},
 		handleChangePageSize() {
-			this.$store.commit('TPL_PAGING_NATIVE_LIST_INIT');
+			this.$store.commit('TPL_PAGING_NATIVE_LIST_INIT')
 		}
 	}
-};
+}
 
 </script>
 

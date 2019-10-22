@@ -3,6 +3,6 @@ export const tpl = async (el, opts = {}, vm = {}) => {
 		// let html = vm.data.domProps.innerHTML;
 		
 	} catch (e) {
-		console.log(e);
+		console.log(e)
 	}
-};
+}

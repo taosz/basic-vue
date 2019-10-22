@@ -1,4 +1,4 @@
-export const getTplTopRoutes = (auth) => ({
+export default {
 	'/tpl/main': '首页',
 	'/tpl/basic': 'Basic',
 	'/tpl/request': 'Request',
@@ -35,4 +35,4 @@ export const getTplTopRoutes = (auth) => ({
 			route: '/tpl/paging/native/demo1'
 		}
 	]
-});
+}

@@ -94,10 +94,10 @@ export default {
 		diy: {
 			type: Object,
 			default() {
-				return { value: 9 };
+				return { value: 9 }
 			},
 			validator(it) {
-				return it.value < 10;
+				return it.value < 10
 			}
 		}
 		// 无效声明, 因为使用的是v-on
@@ -125,7 +125,7 @@ export default {
 			isShow: true,
 			listFor: ['v-for', 'v-for', 'v-for'],
 			currentView: 'my-component-1'
-		};
+		}
 	},
 	// # 4. 计算属性
 	computed: {
@@ -135,8 +135,8 @@ export default {
 		 * 优点：this.msg不改变，this.computedMsg不会进行重复计算
 		 */
 		computedMsg() {
-			console.log(this.msg, `\n请注释我\n测试改变msg, computedMsg 是否被调起`);
-			return new Date();
+			console.log(this.msg, `\n请注释我\n测试改变msg, computedMsg 是否被调起`)
+			return new Date()
 		},
 		/**
 		 * 计算属性默认为只有getter，但您也可以在需要时提供setter;
@@ -145,11 +145,11 @@ export default {
 		computedDiyMsg: {
 			// getter
 			get() {
-				return `diy - ${this.msg}`;
+				return `diy - ${this.msg}`
 			},
 			// setter
 			set(value) {
-				this.msg = value;
+				this.msg = value
 			}
 		}
 	},
@@ -160,23 +160,23 @@ export default {
 		 * 假如msg连续被set, 可以使用防抖 + 异步形式减少频率
 		 */
 		msg(value) {
-			this.watchMsg = `watchMsg: ${value}`;
+			this.watchMsg = `watchMsg: ${value}`
 		}
 	},
 	// # 6. 生命周期 
 	created() {
-		console.log(this.$global);
+		console.log(this.$global)
 	},
 	// # 7. 事件或其他方法
 	methods: {
 		handleMsg() {
-			this.msg = Math.random();
+			this.msg = Math.random()
 
 			// 触发父组件方法
-			this.$emit("diyEvent");
+			this.$emit("diyEvent")
 		},
 		handleDiyMsg() {
-			this.computedDiyMsg = `computedDiyMsg - 测试`;
+			this.computedDiyMsg = `computedDiyMsg - 测试`
 		},
 		// # 10. v-for
 		handleAddItem() {
@@ -184,7 +184,7 @@ export default {
 			 * Vue包装观察数组的变异方法: push() pop() shift() unshift() splice() sort() reverse()
 			 * 变异方法会改变它们被调用的原始数组
 			 */
-			this.listFor.push(`↑↑↑↑${Math.random()}↑↑↑↑`);
+			this.listFor.push(`↑↑↑↑${Math.random()}↑↑↑↑`)
 
 			/**
 			 * Vue非诱变方法: filter()，concat()，slice()
@@ -192,22 +192,22 @@ export default {
 			 */
 			this.listFor = this.listFor.filter((item, index) => {
 				// 去除第一个
-				return !!index;
-			});
+				return !!index
+			})
 
 			/**
 			 * Vue 无法检测到对数组的以下更改
 			 * 前提：先注释掉前面两个，因为渲染是异步的
 			 */
 			// 1. 用索引直接设置一个项目
-			this.listFor[0] = `无法改变哦`;
+			this.listFor[0] = `无法改变哦`
 			// 解决方案：
-			this.$set(this.listFor, 0, '可以改变');
+			this.$set(this.listFor, 0, '可以改变')
 
 			// 2. 修改数组的长度
-			this.listFor.length = 4;
+			this.listFor.length = 4
 			// 解决方案：
-			this.listFor.splice(4);
+			this.listFor.splice(4)
 
 
 			/**
@@ -218,10 +218,10 @@ export default {
 			// 3. 使用v-if
 		},
 		handleChange(currentView) {
-			this.currentView = `my-component-${currentView.substr(-1) == 1 ? 2 : 1}`;
+			this.currentView = `my-component-${currentView.substr(-1) == 1 ? 2 : 1}`
 		}
 	},
-};
+}
 </script>
 
 <style lang="scss">

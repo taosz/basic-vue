@@ -5,4 +5,4 @@ module.exports = [
 		name: "订单详情",
 		template: ['basic']
 	}
-];
+]

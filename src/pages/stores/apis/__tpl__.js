@@ -21,5 +21,5 @@ const api = {
 	'TPL_PAGING_NATIVE_LIST_GET': '/test',
 	'TPL_SCROLL_BASIC_LIST_GET': '/test',
 	'TPL_SCROLL_TABS_LIST_GET': '/test'
-};
-export default api;
+}
+export default api

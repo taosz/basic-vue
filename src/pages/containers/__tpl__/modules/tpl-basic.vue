@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Content from '@components/__tpl__/basic/content';
+import Content from '@components/__tpl__/basic/content'
 
 export default {
 	name: 'tpl-basic',
@@ -30,16 +30,16 @@ export default {
 				name: 'wya',
 				dev: false
 			}
-		};
+		}
 	},
 	created() {
 	},
 	methods: {
 		handleDiyEvent() {
-			console.log('我被子组件触发了');
+			console.log('我被子组件触发了')
 		}
 	},
-};
+}
 </script>
 
 <style lang="scss">

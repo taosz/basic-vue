@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Content from '@components/login/content';
+import Content from '@components/login/content'
 
 export default {
 	name: 'login',
@@ -14,14 +14,14 @@ export default {
 	},
 	data() {
 		return {
-		};
+		}
 	},
 	created() {
-		console.log('?');
+		console.log('?')
 	},
 	methods: {
 	},
-};
+}
 </script>
 
 <style lang="scss">

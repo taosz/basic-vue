@@ -20,22 +20,22 @@ export default {
 	data() {
 		return {
 			path: this.$route.path
-		};
+		}
 	},
 	computed: {
 		
 	},
 	mounted() {
-		document.title = this.title || document.title;
+		document.title = this.title || document.title
 	},
 	beforeDestroy() {
 	},
 	methods: {
 		handleClick() {
-			this.$router.back();
+			this.$router.back()
 		}
 	}
-};
+}
 </script>
 <style lang="scss">
 

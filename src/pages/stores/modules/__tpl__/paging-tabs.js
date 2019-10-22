@@ -1,4 +1,4 @@
-import { initPage } from '@utils/utils';
+import { initPage } from '@utils/utils'
 
 const initialState = {
 	listInfo: {
@@ -12,7 +12,7 @@ const initialState = {
 			...initPage
 		},
 	}
-};
+}
 
 const mutations = {
 	TPL_PAGING_TABS_LIST_GET_SUCCESS(state, { data, param: { type, page } }) {
@@ -26,7 +26,7 @@ const mutations = {
 					[page]: data.list
 				}
 			}
-		};
+		}
 	},
 	TPL_PAGING_TABS_LIST_RESET(state, { type }) {
 		state.listInfo = {
@@ -35,21 +35,21 @@ const mutations = {
 				...initPage,
 				reset: true
 			}
-		};
+		}
 	},
 	TPL_PAGING_TABS_LIST_INIT(state, payload) {
 		state.listInfo = {
 			...initialState.listInfo
-		};
+		}
 	},
 	TPL_PAGING_TABS_ROUTE_CHANGE(state) {
 		state.listInfo = {
 			...initialState.listInfo
-		};
+		}
 	}
-};
+}
 
 export const tplPagingTabs = {
 	state: { ...initialState },
 	mutations,
-};
+}

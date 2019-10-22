@@ -9,14 +9,14 @@ export default {
 	name: 'tpl-nolayout',
 	data() {
 		return {
-		};
+		}
 	},
 	created() {
-		console.log('?');
+		console.log('?')
 	},
 	methods: {
 	},
-};
+}
 </script>
 
 <style lang="scss">

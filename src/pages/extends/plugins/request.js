@@ -1,10 +1,10 @@
-import net from '@utils/net';
-import { mapActions } from 'vuex';
+import net from '@utils/net'
+import { mapActions } from 'vuex'
 
 // Vue.use(ajax);
 export default {
 	install(Vue) {
-		Vue.prototype.$request = net.ajax;
+		Vue.prototype.$request = net.ajax
 		// Vue.prototype.$get = net.get;
 		// Vue.prototype.$post = net.post;
 		// Vue.prototype.$delete = net.delete;
@@ -14,8 +14,11 @@ export default {
 
 		Vue.mixin({
 			methods: {
+				/**
+				 * action 仅作为请求用
+				 */
 				...mapActions(['request'])
 			}
-		});
-	},
-};
+		})
+	}
+}

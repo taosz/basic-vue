@@ -4,5 +4,5 @@ const api = {
 	 */
 	HOME_MAIN_GET: '',
 	HOME_MAIN_LIST_GET: '/test'
-};
-export default api;
+}
+export default api

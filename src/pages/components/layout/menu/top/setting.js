@@ -1,3 +1,3 @@
-export const getSettingTopRoutes = (auth) => ({
-	'/setting/main': '设置',
-});
+export default {
+	'/setting/main': '设置'
+}

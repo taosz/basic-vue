@@ -1,17 +1,17 @@
-export const getChunks = (auth = {}) => [
+export const getChunks = () => [
 	{
-		value: 'tpl',
+		value: '__tpl__',
 		name: '模板',
 		icon: '',
 		show: true,
 		route: '/tpl'
 	},
 	{
-		value: 'setting',
-		name: '设置',
+		value: 'home',
+		name: '首页',
 		icon: '',
 		show: true,
-		route: '/setting',
-		stair: true,
+		route: '/home',
+		stair: true
 	}
-];
+]

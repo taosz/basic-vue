@@ -1,28 +1,19 @@
-# basic-env
+# basic-vue
 Vue脚手架
 
 ## 下载
-
 ```shell
-npm i basic-env -g
-npm link / node ./bin/basic-vue <command name>
-
+npm i basic-vue
 ```
 
-## 生成项目
-
+## 运行项目
 ```shell
-basic-vue init
-
+npm run serve 
 ```
 
-## 数据模拟 (待开发)
-## 删除页面 (待开发)
-
-## 快速开发
-
+## 下载 [basic-toolkit](https://www.npmjs.com/package/basic-toolkit)自动生成路由
 > 创建业务所需模版，包括基本的，分页/选项卡, 表单
 
 ```shell
-basic-vue add: 新建`basic-vue` 脚手架路由规则下，自动创建文件
+toolkit-vue add: toolkit add新建`basic-vue` 脚手架路由规则下，自动创建文件
 ```

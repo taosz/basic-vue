@@ -1,9 +1,9 @@
 const createApi = (opts = {}) => store => {
 	store.subscribeAction((action, state) => {
 		if (action.type === 'ajax') {
-			console.log(action, state);
+			console.log(action, state)
 		}
-	});
-};
+	})
+}
 
-export default createApi;
+export default createApi

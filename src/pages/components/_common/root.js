@@ -1,1 +1,1 @@
-export SetTitle from './set-title/set-title';
+export SetTitle from './set-title/set-title'

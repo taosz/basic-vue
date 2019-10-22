@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Link from '@components/__tpl__/main/link';
+import Link from '@components/__tpl__/main/link'
 
 export default {
 	name: 'tpl-main',
@@ -15,13 +15,13 @@ export default {
 	data() {
 		return {
 			
-		};
+		}
 	},
 	created() {
 	},
 	methods: {
 	},
-};
+}
 </script>
 
 <style lang="scss">

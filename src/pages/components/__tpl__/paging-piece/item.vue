@@ -14,11 +14,11 @@ export default {
 	},
 	methods: {
 		handleResetFirst() {
-			this.$store.commit('TPL_PAGING_PIECE_LIST_INIT');
+			this.$store.commit('TPL_PAGING_PIECE_LIST_INIT')
 		},
 		handleResetCur() {
-			this.$store.commit('TPL_PAGING_PIECE_LIST_RESET');
+			this.$store.commit('TPL_PAGING_PIECE_LIST_RESET')
 		}
 	}
-};
+}
 </script>

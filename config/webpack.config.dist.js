@@ -1,13 +1,13 @@
-process.env.NODE_ENV = 'production';
-const path = require('path');
+process.env.NODE_ENV = 'production'
+const path = require('path')
 
-const webpack = require('webpack');
-const webpackMerge = require('webpack-merge');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const AssetsPlugin = require('assets-webpack-plugin');
+const webpack = require('webpack')
+const webpackMerge = require('webpack-merge')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const AssetsPlugin = require('assets-webpack-plugin')
 
-const { APP_ROOT, commonConfig } = require('./webpack.config.common');
+const { APP_ROOT, commonConfig } = require('./webpack.config.common')
 
 const webpackConfig = {
 	mode: "production",
@@ -20,8 +20,8 @@ const webpackConfig = {
 			path: path.resolve(APP_ROOT, 'dist/js/'),
 			filename: 'webpack-assets.js',
 			processOutput: assets => {
-				delete assets[''];
-				return `window.WEBPACK_ASSETS=${JSON.stringify(assets)}`;
+				delete assets['']
+				return `window.WEBPACK_ASSETS=${JSON.stringify(assets)}`
 			}
 		}),
 		/**
@@ -54,9 +54,9 @@ const webpackConfig = {
 			logLevel: 'info'
 		})
 	],
-};
+}
 
 module.exports = webpackMerge(
 	commonConfig,
 	webpackConfig
-);
+)

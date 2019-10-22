@@ -1,4 +1,4 @@
-export const getTplRoutes = (auth) => [
+export default [
 	{
 		name: '首页',
 		icon: '',
@@ -27,6 +27,6 @@ export const getTplRoutes = (auth) => [
 		name: 'Paging',
 		icon: '',
 		show: true,
-		route: '/tpl/paging',
+		route: '/tpl/paging'
 	}
-];
+]

@@ -1,5 +1,5 @@
-import { layoutMain } from './main';
+import { layoutMain } from './main'
 
 export default {
 	layoutMain
-};
+}

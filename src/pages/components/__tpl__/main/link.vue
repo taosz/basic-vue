@@ -1,67 +1,31 @@
 <template>
 	<ul>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<li v-for="(item, index) in list" v-if="String(index)" :key="index">
-			<router-link :to="item.path">{{ item.name }}</router-link>
-			<vc-copy :value="item.path" tag="span">复制</vc-copy>
-		</li>
+		<paging
+			:load-data="loadData"
+		/>
 	</ul>
-	
+
 </template>
 
 <script>
-import { tplConfig, tplOtherConfig } from '@containers/__tpl__/app';
+import Paging from '@components/_common/tpl/paging'
 
 export default {
 	name: 'tpl-links',
-	components: {
-	},
+	components: { Paging },
 	data() {
-		return {
-			list: tplConfig
-		};
+		return {}
 	},
 	created() {
 	},
 	methods: {
-	},
-};
+		loadData() {
+			return new Promise((resolve, reject) => {
+				resolve({})
+			})
+		}
+	}
+}
 </script>
 
 <style lang="scss">

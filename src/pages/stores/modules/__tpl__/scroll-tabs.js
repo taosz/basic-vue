@@ -1,4 +1,4 @@
-import { initScroll } from '@utils/utils';
+import { initScroll } from '@utils/utils'
 
 const initialState = {
 	listInfo: {
@@ -12,7 +12,7 @@ const initialState = {
 			...initScroll
 		},
 	}
-};
+}
 
 const mutations = {
 	TPL_SCROLL_TABS_LIST_GET_SUCCESS(state, { data, param: { type, page } }) {
@@ -26,7 +26,7 @@ const mutations = {
 					...data.list
 				]
 			}
-		};
+		}
 	},
 	TPL_SCROLL_TABS_LIST_REFRESH(state, { type }) {
 		state.listInfo = {
@@ -34,21 +34,21 @@ const mutations = {
 			[type]: [
 				...initScroll
 			]
-		};
+		}
 	},
 	TPL_SCROLL_TABS_LIST_INIT(state, payload) {
 		state.listInfo = {
 			...initialState.listInfo
-		};
+		}
 	},
 	TPL_SCROLL_TABS_ROUTE_CHANGE(state) {
 		state.listInfo = {
 			...initialState.listInfo
-		};
+		}
 	}
-};
+}
 
 export const tplScrollTabs = {
 	state: { ...initialState },
 	mutations,
-};
+}

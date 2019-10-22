@@ -1,5 +1,5 @@
 <template>
-	<vc-paging
+	<el-paging
 		:data-source="listInfo.data"
 		:count="listInfo.count"
 		:total="listInfo.total"
@@ -11,12 +11,12 @@
 		@page-size-change="handleResetFirst"
 	>
 		<tpl-item />
-	</vc-paging>
+	</el-paging>
 </template>
 
 <script>
-import { URL } from '@utils/utils';
-import Item from './item';
+import { URL } from '@utils/utils'
+import Item from './item'
 
 export default {
 	name: 'tpl-table1',
@@ -24,19 +24,19 @@ export default {
 		'tpl-item': Item
 	},
 	data() {
-		return {};
+		return {}
 	},
 	computed: {
 		listInfo() {
-			return this.$store.state.tplPagingBasic.listInfo;
+			return this.$store.state.tplPagingBasic.listInfo
 		}
 	},
 	mounted() {
-		
+
 	},
 	methods: {
 		loadData(page, pageSize) {
-			const { query = {} } = URL.parse();
+			const { query = {} } = URL.parse()
 			return this.request({
 				url: 'TPL_PAGING_BASIC_LIST_GET',
 				type: 'GET',
@@ -46,22 +46,22 @@ export default {
 					pageSize: pageSize || 10
 				},
 			}).then((res) => {
-				console.log(res, 'res');
+				console.log(res, 'res')
 			}).catch((error) => {
-				console.log(error, 'error');
-			});
+				console.log(error, 'error')
+			})
 		},
 		handleChangePageSize() {
-			this.$store.commit('TPL_PAGING_BASIC_LIST_INIT');
+			this.$store.commit('TPL_PAGING_BASIC_LIST_INIT')
 		},
 		handleResetFirst() {
-			this.$store.commit('TPL_PAGING_BASIC_LIST_INIT');
+			this.$store.commit('TPL_PAGING_BASIC_LIST_INIT')
 		},
 		handleResetCur() {
-			this.$store.commit('TPL_PAGING_BASIC_LIST_RESET');
+			this.$store.commit('TPL_PAGING_BASIC_LIST_RESET')
 		},
 	}
-};
+}
 
 </script>
 

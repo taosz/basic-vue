@@ -1,30 +1,32 @@
 <template>
-	<vc-form
+	<el-form
 		ref="form"
 		:model="formValidate"
 		:rules="ruleValidate"
-		:label-width="120"
+		label-width="120px"
 		style="height: 100vh"
-		position="left"
 		class="g-flex-cc g-fd-c"
 	>
-		<vc-form-item label="用户名:" prop="user">
-			<vc-input v-model="formValidate.user" placeholder="请输入用户名"/>
-		</vc-form-item>
-		<vc-form-item label="密码:" prop="password">
-			<vc-input v-model="formValidate.password" placeholder="请输入密码"/>
-		</vc-form-item>
-		<div @click="handleLogin">
-			登录
-		</div>
-	</vc-form>
+		<el-form-item label="用户名:" prop="user">
+			<el-input
+				v-model="formValidate.user"
+				placeholder="请输入用户名"
+			/>
+		</el-form-item>
+		<el-form-item label="密码:" prop="password">
+			<el-input
+				v-model="formValidate.password"
+				placeholder="请输入密码"
+			/>
+		</el-form-item>
+
+		<el-button @click="handleLogin">登录</el-button>
+	</el-form>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { Message } from '@wya/vc';
-import { Storage } from '@utils/utils';
-import { createLoginAuth } from '@routers/hooks';
+import { mapState } from 'vuex'
+import { createLoginAuth } from '@routers/hooks'
 
 export default {
 	name: 'login',
@@ -33,17 +35,23 @@ export default {
 		return {
 			formValidate: {
 				user: '',
-				password: '',
+				password: ''
 			},
 			ruleValidate: {
 				user: [
-					{ required: true, message: '请输入用户名' }
+					{
+						required: true,
+						message: '请输入用户名'
+					}
 				],
 				password: [
-					{ required: true, message: '请输入密码' }
-				],
+					{
+						required: true,
+						message: '请输入密码'
+					}
+				]
 			}
-		};
+		}
 	},
 	computed: {
 		...mapState(['loginMain'])
@@ -54,7 +62,7 @@ export default {
 	methods: {
 		handleLogin() {
 			this.$refs.form.validate((isValid) => {
-				if (!isValid) return;
+				if (!isValid) return
 				this.request({
 					url: 'LOGIN_MAIN_POST',
 					type: 'POST',
@@ -64,17 +72,19 @@ export default {
 							...this.formValidate
 						}
 					}
-				}).then((res) => {
-					Message.success(`登录成功 - userName: ${this.loginMain.user}`);
+				})
+					.then((res) => {
+						this.$message.success(`登录成功 - userName: ${this.loginMain.user}`)
 
-					createLoginAuth(res.data);
-				}).catch((res) => {
-					console.log(res);
-				});
-			});
+						createLoginAuth(res.data)
+					})
+					.catch((res) => {
+						console.log(res)
+					})
+			})
 		}
-	},
-};
+	}
+}
 </script>
 
 <style lang="scss">

@@ -1,54 +1,57 @@
-console.log(`NODE_ENV : ${process.env.NODE_ENV}`);
-const APP_ROOT = process.cwd();
-const ENV_IS_DEV = process.env.NODE_ENV === 'development';
+console.log(`NODE_ENV : ${process.env.NODE_ENV}`)
+const APP_ROOT = process.cwd()
+const ENV_IS_DEV = process.env.NODE_ENV === 'development'
 
-const path = require('path');
-const fs = require('fs-extra');
+const path = require('path')
+const fs = require('fs-extra')
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const webpackMerge = require('webpack-merge');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const webpackMerge = require('webpack-merge')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
-const userConfig = fs.existsSync(path.resolve(__dirname, './user.config.js')) 
+const userConfig = fs.existsSync(path.resolve(__dirname, './user.config.js'))
 	? require('./user.config.js')
-	: {};
+	: {}
 
 const localPort = (() => {
-	if (ENV_IS_DEV) {
-		return userConfig.port || 8088;
-	}
-	return 9098;
-})();
+	return ENV_IS_DEV ? (userConfig.port || 1573) : 9098
+})()
+
 const localIp = (() => {
-	const ips = [];
-	const os = require('os');
-	const ntwk = os.networkInterfaces();
+	const ips = []
+	const os = require('os')
+	const ntwk = os.networkInterfaces()
 	for (const k in ntwk) {
 		for (let i = 0; i < ntwk[k].length; i++) {
-			const _add = ntwk[k][i].address;
-			if (_add && _add.split('.').length == 4 && !ntwk[k][i].internal && ntwk[k][i].family == 'IPv4') {
-				ips.push(ntwk[k][i].address);
+			const _add = ntwk[k][i].address
+			if (_add && _add.split('.').length === 4 && !ntwk[k][i].internal && ntwk[k][i].family === 'IPv4') {
+				ips.push(ntwk[k][i].address)
 			}
 		}
 	}
-	return ips[0] || 'localhost';
-})();
-const postcssLoader = {
+	return ips[0] || 'localhost'
+})()
+
+// const loaderPath = [
+//   path.resolve(APP_ROOT, 'node_modules/fast-xml-parser'), // 第三方库未编译，导致iOS8不兼容
+//   path.resolve(APP_ROOT, 'src')
+// ]
+
+const PostcssLoader = {
 	loader: 'postcss-loader',
 	options: {
 		config: {
 			path: path.resolve(APP_ROOT, 'config/postcss.config.js')
 		}
 	}
-};
+}
+
 const loaderPath = [
-	path.resolve(APP_ROOT, "node_modules/@wya/vc"),
-	path.resolve(APP_ROOT, "node_modules/iview"),
-	path.resolve(APP_ROOT, "node_modules/fast-xml-parser"), // 第三方库未编译，导致iOS8不兼容
-	path.resolve(APP_ROOT, "src")
-];
+	path.resolve(APP_ROOT, 'src')
+]
+
 const webpackConfig = {
-	target: "web", // <=== 默认是 'web'，可省略
+	target: 'web', // <=== 默认是 'web'，可省略
 	resolve: {// 重定向路径
 		mainFiles: ['index'],
 		modules: [path.resolve(APP_ROOT, 'src'), 'node_modules'],
@@ -96,46 +99,30 @@ const webpackConfig = {
 	module: {
 		rules: [
 			{
-				test: /\.jsx?$/,
-				include: loaderPath,
-				use: [
-					{
-						loader: 'babel-loader'
-					}
-				]
-			},
-			{
 				test: /\.vue/,
 				include: loaderPath,
-				use: [
-					{
-						loader: 'vue-loader',
-					},
-					{
-						loader: '@wya/vc-loader',
-					}
-				]
+				use: ['vue-loader']
 			},
 			{
 				test: /\.(css|scss)$/,
 				use: [
-					'vue-style-loader', 
-					'css-loader', 
-					postcssLoader, 
+					'vue-style-loader',
+					'css-loader',
+					PostcssLoader,
 					'sass-loader',
 					{
 						loader: 'sass-resources-loader',
 						options: {
 							resources: [
-								path.resolve(APP_ROOT, "src/css/themes/index.scss")
+								path.resolve(APP_ROOT, 'src/css/themes/index.scss')
 							]
 						}
 					}
 				],
 				// 组件内的样式
 				include: [
-					path.resolve(APP_ROOT, "src/pages"),
-					path.resolve(APP_ROOT, "node_modules")
+					path.resolve(APP_ROOT, 'src/pages'),
+					path.resolve(APP_ROOT, 'node_modules/element-ui/lib/theme-chalk/index.css')
 				]
 			},
 			{
@@ -143,13 +130,12 @@ const webpackConfig = {
 				use: [
 					MiniCssExtractPlugin.loader,
 					'css-loader',
-					postcssLoader,
+					PostcssLoader,
 					'sass-loader'
 				],
-				// 全局的样式
 				include: [
-					path.resolve(APP_ROOT, "src/css"),
-					path.resolve(APP_ROOT, "node_modules/iview")
+					// 提取复用样式
+					path.resolve(APP_ROOT, 'src/css')
 				]
 			},
 			{
@@ -187,18 +173,18 @@ const webpackConfig = {
 							'vuex',
 							'core-js',
 							'lodash' // 这个用的地方偏多
-						];
+						]
 						// new RegExp(`([\\\\/]+)node_modules([\\\\/]+)`) -> /([\\\/]+)node_modules([\\\/]+)/
-						const isInModules = modules.some(i => (new RegExp(`([\\\\/]+)node_modules([\\\\/_]+)${i}`)).test(chunk.resource));
+						const isInModules = modules.some(i => (new RegExp(`([\\\\/]+)node_modules([\\\\/_]+)${i}`)).test(chunk.resource))
 						return chunk.resource
 							&& /\.js$/.test(chunk.resource)
-							&& isInModules;
+							&& isInModules
 					},
 					name: 'common',
-					chunks: 'all',
+					chunks: 'all'
 				}
 			}
-		},
+		}
 	},
 	plugins: [
 		new MiniCssExtractPlugin({
@@ -206,7 +192,7 @@ const webpackConfig = {
 		}),
 		new VueLoaderPlugin()
 	]
-};
+}
 const defaultConfig = {
 	// cheap-module-eval-source-map 原始源码（仅限行）
 	// cheap-eval-source-map 转换过的代码（仅限行）// 重构建比较好
@@ -216,7 +202,7 @@ const defaultConfig = {
 	},
 	devServer: {
 		host: localIp,
-		contentBase: "/",
+		contentBase: '/',
 		port: localPort,
 		inline: true,
 		// compress: true, // gzip
@@ -235,7 +221,7 @@ const defaultConfig = {
 		// 		pathRewrite: {"^/api" : ""}
 		// 	}
 		// },
-		hot: true, // 同--hot
+		hot: true // 同--hot
 	},
 	node: {
 		global: true,
@@ -247,8 +233,8 @@ const defaultConfig = {
 		setImmediate: false
 	},
 	// 启用编译缓存
-	cache: true,
-};
+	cache: true
+}
 
 module.exports = {
 	APP_ROOT,
@@ -258,4 +244,4 @@ module.exports = {
 		webpackConfig,
 		defaultConfig
 	)
-};
+}

@@ -38,18 +38,18 @@ export default {
 	},
 	data() {
 		return {
-		};
+		}
 	},
 	computed: {
 		secondStatus() {
-			return this.$store.state.layoutMain.secondStatus;
+			return this.$store.state.layoutMain.secondStatus
 		}
 	},
 	methods: {
 	
 	}
     
-};
+}
 </script>
 <style lang="scss">
 .c-footer {
