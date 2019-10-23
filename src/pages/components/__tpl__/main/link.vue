@@ -1,10 +1,7 @@
 <template>
-	<ul>
-		<paging
-			:load-data="loadData"
-		/>
-	</ul>
-
+	<div>
+		<button @click="handleRequestTest">Request</button>
+	</div>
 </template>
 
 <script>
@@ -17,8 +14,14 @@ export default {
 		return {}
 	},
 	created() {
+		console.log(this)
 	},
 	methods: {
+		handleRequestTest() {
+			this.request({ api: 'TPL_MAIN_GET' }).then(res => {
+				console.log(res)
+			})
+		},
 		loadData() {
 			return new Promise((resolve, reject) => {
 				resolve({})

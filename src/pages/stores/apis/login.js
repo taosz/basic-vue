@@ -1,4 +1,3 @@
-const api = {
+export default {
 	LOGIN_MAIN_POST: '/human/login/login.json'
 }
-export default api

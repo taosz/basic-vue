@@ -5,7 +5,7 @@
 		<div
 			:style="{
 				paddingTop: `${ Config.topHeight }px`,
-				paddingLeft: `${ Config.cellLeftWidth_1 + (Config.isExpand ? cellLeftWidth_2 : 0) }px`
+				paddingLeft: `${ Config.cellLeftWidth_1 + (Config.isExpand ? Config.cellLeftWidth_2 : 0) }px`
 			}"
 		>
 			<router-view

@@ -54,7 +54,6 @@ if (process.env.NODE_ENV !== 'production') {
 	basicRoutes = require('./routes.dist').basicRoutes
 }
 
-console.log([basicRoutes, dynamicRoutes])
 let routesManager = new RoutesManager(basicRoutes, dynamicRoutes)
 
 Vue.config.productionTip = false
@@ -81,7 +80,7 @@ Vue.use(_global)
 Vue.use(Router)
 
 const router = new Router({
-	...routesManager.config,
+	...routesManager.config
 })
 
 routesManager.setRouter(router)
@@ -116,4 +115,3 @@ router.onReady(() => {
 
 window.app = app
 window.routesManager = routesManager
-

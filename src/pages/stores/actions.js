@@ -5,8 +5,13 @@ import { RegEx } from '@utils/utils'
 import net from '../utils/net'
 import { DEV_WITH_SERVER } from '../constants/constants'
 import { loadCentralizationVariable } from '../utils/utils'
+import mutations from './mutations'
 
 const API_ROOT = loadCentralizationVariable(require.context('./apis', true, /\.js$/))
+
+// Mock
+let Mock = require('mockjs')
+import mockTpls from './mock'
 
 let baseUrl
 /* global __DEV__ */
@@ -32,45 +37,63 @@ for (let i in API_ROOT) {
 		item = baseUrl + item
 	}
 }
-export const actions = {
-	request(store, opts = {}) {
+
+const actions = {
+	async request(state, opts = {}) {
 		const {
-			url: mutation,
+			api,
+			mutation,
 			redirect, // 重定向Mutation
 			param = {},
 			pending,
 			fail,
 			refresh,
+			method,
 			loading = true,
 			...rest
 		} = opts
-		console.log(_API_ROOT)
 
-		if (!_API_ROOT[mutation]) {
-			console.error(`'[rootActions/request]: ——${mutation}—— 所对应的action不存在`)
-			return !1
-		}
+		const isMock = _global.mock
+		const url = _API_ROOT[api]
+
+		;(() => {
+			let msg = ''
+			if (!url && !isMock) {
+				msg = 'action'
+			} else if (!mockTpls[api] && !isMock) {
+				msg = 'Mock Template'
+			}
+
+			if (msg) {
+				console.error(`'[rootActions/request]: ——${api}—— 所对应的${msg}不存在`)
+				return false
+			}
+		})()
 
 		// pending 为 false，则必须要写_PENDING的mutation
-		pending && store.commit(redirect || `${mutation}_PENDING`, { param })
-		return net.ajax({
+		// pending && store.commit(redirect || `${mutation}_PENDING`, { param })
+
+		_global.mock && Mock.mock(url, method, mockTpls[api])
+
+		net.ajax({
 			url: _API_ROOT[mutation],
 			param,
 			loading: param.page === undefined ? loading : false,
 			...rest
+		}).then((res) => {
+			console.log(res)
+			const { data } = res
+			store.commit(redirect || `${mutation}_${refresh ? 'REFRESH' : 'SUCCESS'}`, {
+				data,
+				param
+				// ...rest
+			})
+			return res
+		}).catch((error) => {
+			fail && store.commit(redirect || `${mutation}_FAIL`, { param })
+			return Promise.reject(error)
 		})
-			.then((res) => {
-				const { data } = res
-				store.commit(redirect || `${mutation}_${refresh ? 'REFRESH' : 'SUCCESS'}`, {
-					data,
-					param
-					// ...rest
-				})
-				return res
-			})
-			.catch((error) => {
-				fail && store.commit(redirect || `${mutation}_FAIL`, { param })
-				return Promise.reject(error)
-			})
 	}
 }
+
+export default actions

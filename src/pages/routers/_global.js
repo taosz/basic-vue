@@ -7,7 +7,7 @@ import { Device, Storage, Cookie } from '@wya/utils'
  * 组件内遵守使用this.$global
  * 组件外等特殊场景使用_global
  */
-typeof window === "object" ? window._global = {} : this._global = {}
+typeof window === 'object' ? window._global = {} : this._global = {}
 
 // 版本号
 _global.version = '1.0'
@@ -16,7 +16,7 @@ Storage.setVersion(_global.version)
 Cookie.setVersion(_global.version)
 
 // GUID
-_global.GUID = location.host.split(".")[0]
+_global.GUID = location.host.split('.')[0]
 
 // 程序打开时间
 _global.landingTime = new Date()
@@ -46,6 +46,12 @@ _global.width = window.innerWidth
 
 // 设备信息状态
 _global.device = Device
+
+// mock数据
+_global.mock = true
+
+// 权限验证
+_global.authVerify = true
 
 export default {
 	install(Vue) {

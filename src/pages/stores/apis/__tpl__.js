@@ -1,4 +1,4 @@
-const api = {
+export default {
 	/**
 	 * 测试用例
 	 */
@@ -22,4 +22,3 @@ const api = {
 	'TPL_SCROLL_BASIC_LIST_GET': '/test',
 	'TPL_SCROLL_TABS_LIST_GET': '/test'
 }
-export default api

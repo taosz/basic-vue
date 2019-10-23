@@ -12,12 +12,6 @@ export default [
 		route: '/tpl/basic'
 	},
 	{
-		name: 'Request',
-		icon: '',
-		show: true,
-		route: '/tpl/request'
-	},
-	{
 		name: 'Form',
 		icon: '',
 		show: true,

@@ -17,7 +17,7 @@
 				</router-link>
 			</template>
 		</div>
-		<div v-if="childMenus.length" :style="{ width: `${cellLeftWidth_2}px` }" class="_two-level">
+		<div v-if="childMenus.length" :style="{ width: `${Config.cellLeftWidth_2}px` }" class="_two-level">
 			<div class="__name">
 				{{ currentChunk.name }}
 			</div>
@@ -59,21 +59,26 @@ export default {
 	computed: {
 		chunks() {
 			let array = getChunks()
-			return array.filter(it => it.show)
+			return array.filter(it => {
+				it.value = it.value.replace(/_/g, '')
+				return it.show
+			})
 		},
 		/**
-		 * 每个路由都一个name，格式：tpl-xxx-xxx，
+		 * 每个路由都一个name，格式：duob-xxx-xxx，
 		 * 不取route.path是因为正式环境下前面会加一级路由，不好判断
 		 */
 		currentChunk() {
 			let routeName = this.$route.path.split('/')
-			return this.chunks.filter(chunk => chunk.value.replace(/_/g, '') === routeName[1])[0] || {}
+			return this.chunks.filter(chunk => chunk.value === routeName[1])[0] || {}
 		},
 		/**
 		 * 获取二级导航菜单
 		 */
 		childMenus() {
 			let children = getChildMenus[this.currentChunk.value] || []
+
+			console.log(['children', this.currentChunk, getChildMenus, children, children.filter((child) => child.show)])
 			return children.filter((child) => child.show)
 		},
 		/**

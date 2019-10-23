@@ -85,7 +85,7 @@ class RoutesManager {
 
 	getRoutes() {
 		let dynamicRoutes = cloneDeep(this.dynamicRoutes)
-		console.log([getChunks(), this.dynamicRoutes, dynamicRoutes])
+		// console.log([getChunks(), this.dynamicRoutes, dynamicRoutes])
 		let allRoutes = getChunks()
 			.reduce((pre, cur) => {
 				dynamicRoutes[cur.value] && pre.push(...dynamicRoutes[cur.value])
