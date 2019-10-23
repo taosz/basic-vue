@@ -49,6 +49,7 @@ let getTopMenus = loadCentralizationVariable(require.context('./menu/top/', fals
 export default {
 	name: 't-layout-left',
 	components: {},
+
 	props: {},
 	data() {
 		return {
