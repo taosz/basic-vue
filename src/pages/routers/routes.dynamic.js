@@ -104,7 +104,7 @@ class RoutesManager {
 			if (route.path.split('/').length < 4) {
 				temp.push(route.path)
 			}
-			let redirect = this.getRedirect(route.path)
+			let redirect = RoutesManager.getRedirect(route.path)
 
 			if (redirect) {
 				redirect.forEach((path) => {
@@ -139,7 +139,7 @@ class RoutesManager {
 		return routes
 	}
 
-	getRedirect(path) {
+	static getRedirect(path) {
 		let pathArr = path.split('/')
 		let redirect
 		switch (pathArr.length) {

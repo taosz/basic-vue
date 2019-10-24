@@ -5,8 +5,6 @@ import { loadCentralizationVariable } from '../utils/utils'
 // ../containers文件夹下不允许出现 app.js 以外的js文件
 const CONTAINER_ROOT = loadCentralizationVariable(require.context('../containers', true, /\.js$/))
 
-console.log(CONTAINER_ROOT)
-
 export const dynamicRoutes = {
 }
 export const basicRoutes = {

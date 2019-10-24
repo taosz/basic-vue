@@ -3,13 +3,13 @@ import { initPage } from '@utils/utils'
 const initialState = {
 	listInfo: {
 		'1': {
-			...initPage
+			...initPage()
 		},
 		'2': {
-			...initPage
+			...initPage()
 		},
 		'3': {
-			...initPage
+			...initPage()
 		},
 	}
 }
@@ -32,7 +32,7 @@ const mutations = {
 		state.listInfo = {
 			...initialState.listInfo,
 			[type]: {
-				...initPage,
+				...initPage(),
 				reset: true
 			}
 		}

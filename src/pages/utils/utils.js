@@ -112,13 +112,13 @@ export const initScroll = {
  * 作为分页初始数据
  * for pc
  */
-export const initPage = {
+export const initPage = () => ({
 	reset: false,
 	current: 0,
 	total: 0,
 	count: 0,
 	data: {}
-}
+})
 
 const now = +(new Date())
 let index = 0

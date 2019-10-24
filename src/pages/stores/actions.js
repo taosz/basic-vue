@@ -5,7 +5,6 @@ import { RegEx } from '@utils/utils'
 import net from '../utils/net'
 import { DEV_WITH_SERVER } from '../constants/constants'
 import { loadCentralizationVariable } from '../utils/utils'
-import mutations from './mutations'
 
 const API_ROOT = loadCentralizationVariable(require.context('./apis', true, /\.js$/))
 
@@ -39,18 +38,18 @@ for (let i in API_ROOT) {
 }
 
 const actions = {
-	async request(state, opts = {}) {
+	async request(store, opts = {}) {
 		const {
 			api,
 			mutation,
 			redirect, // 重定向Mutation
 			param = {},
+			query = {},
 			pending,
 			fail,
 			refresh,
 			method,
-			loading = true,
-			...rest
+			loading = true
 		} = opts
 
 		const isMock = _global.mock
@@ -74,24 +73,22 @@ const actions = {
 		// pending && store.commit(redirect || `${mutation}_PENDING`, { param })
 
 		_global.mock && Mock.mock(url, method, mockTpls[api])
-
-		net.ajax({
-			url: _API_ROOT[mutation],
+		console.log(url)
+		return net({
+			url,
 			param,
-			loading: param.page === undefined ? loading : false,
-			...rest
+			query
 		}).then((res) => {
-			console.log(res)
-			const { data } = res
-			store.commit(redirect || `${mutation}_${refresh ? 'REFRESH' : 'SUCCESS'}`, {
-				data,
-				param
-				// ...rest
-			})
+			// const { data } = res
+			// store.commit(redirect || `${mutation}_${refresh ? 'REFRESH' : 'SUCCESS'}`, {
+			// 	data,
+			// 	param
+			// 	// ...rest
+			// })
 			return res
-		}).catch((error) => {
+		}).catch(error => {
 			fail && store.commit(redirect || `${mutation}_FAIL`, { param })
-			return Promise.reject(error)
+			throw error(error)
 		})
 	}
 }

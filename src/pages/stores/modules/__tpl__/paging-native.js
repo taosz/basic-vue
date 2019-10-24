@@ -2,7 +2,7 @@ import { initPage } from '@utils/utils'
 
 const initialState = {
 	listInfo: {
-		...initPage
+		...initPage()
 	}
 }
 
@@ -19,18 +19,18 @@ const mutations = {
 	},
 	TPL_PAGING_NATIVE_LIST_RESET(state, payload) {
 		state.listInfo = {
-			...initPage,
+			...initPage(),
 			reset: true
 		}
 	},
 	TPL_PAGING_NATIVE_LIST_INIT(state, payload) {
 		state.listInfo = {
-			...initPage
+			...initPage()
 		}
 	},
 	TPL_PAGING_NATIVE_ROUTE_CHANGE(state) {
 		state.listInfo = {
-			...initPage
+			...initPage()
 		}
 	}
 }
